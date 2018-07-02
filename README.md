@@ -14,5 +14,4 @@
 
 
 ## Useful Tools
-1) https://github.com/BlockCatIO/solidity-flattener
-
+1) https://github.com/poanetwork/solidity-flattener
