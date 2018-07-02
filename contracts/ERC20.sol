@@ -1,7 +1,9 @@
-/// erc20.sol -- API for the ERC20 token standard
 pragma solidity ^0.4.23;
 
-interface ERC20Events {
+// ----------------------------------------------------------------------------
+// ERC20 token standard
+// ----------------------------------------------------------------------------
+contract ERC20Events {
     event Approval(address indexed src, address indexed guy, uint wad);
     event Transfer(address indexed src, address indexed dst, uint wad);
 }
