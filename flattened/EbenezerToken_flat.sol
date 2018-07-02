@@ -1,8 +1,77 @@
 pragma solidity ^0.4.23;
 
-import "contracts/ERC20.sol";
-import "contracts/Owned.sol";
-import "contracts/SafeMath.sol";
+// ----------------------------------------------------------------------------
+// Safe math
+// ----------------------------------------------------------------------------
+contract SafeMath {
+    function safeAdd(uint a, uint b) public pure returns (uint c) {
+        c = a + b;
+        require(c >= a);
+    }
+    function safeSub(uint a, uint b) public pure returns (uint c) {
+        require(b <= a);
+        c = a - b;
+    }
+    function safeMul(uint a, uint b) public pure returns (uint c) {
+        c = a * b;
+        require(a == 0 || c / a == b);
+    }
+    function safeDiv(uint a, uint b) public pure returns (uint c) {
+        require(b > 0);
+        c = a / b;
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Owned contract
+// ----------------------------------------------------------------------------
+contract Owned {
+    address public owner;
+    address public newOwner;
+
+    event OwnershipTransferred(address indexed _from, address indexed _to);
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function transferOwnership(address _newOwner) public onlyOwner {
+        newOwner = _newOwner;
+    }
+    function acceptOwnership() public {
+        require(msg.sender == newOwner);
+        OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
+        newOwner = address(0);
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------
+// ERC20 token standard
+// ----------------------------------------------------------------------------
+contract ERC20Events {
+    event Approval(address indexed src, address indexed guy, uint wad);
+    event Transfer(address indexed src, address indexed dst, uint wad);
+}
+
+contract ERC20 is ERC20Events {
+    function totalSupply() public view returns (uint);
+    function balanceOf(address guy) public view returns (uint);
+    function allowance(address src, address guy) public view returns (uint);
+
+    function approve(address guy, uint wad) public returns (bool);
+    function transfer(address dst, uint wad) public returns (bool);
+    function transferFrom(address src, address dst, uint wad) public returns (bool);
+}
+
+
 
 // ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals and assisted

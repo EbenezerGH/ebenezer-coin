@@ -1,0 +1,15 @@
+{
+  "name": "Ebenezer",
+  "version": "1.0.0",
+  "scripts": {
+    "flatten": "cd ./node_modules/solidity-flattener && npm start ../../contracts/EbenezerToken.sol --out ../../flattened",
+    "to-bytecode": "solcjs flattened/* -o flattened --bin"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/EbenezerGH/ebenezer-coin.git",
+  "author": "<Ebenezer@younow.com>",
+  "license": "MIT",
+  "dependencies": {
+    "solidity-flattener": "git+https://github.com/poanetwork/solidity-flattener.git"
+  }
+}
